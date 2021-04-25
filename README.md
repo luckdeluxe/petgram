@@ -28,7 +28,7 @@ _A series of step-by-step examples that tells you what to run to get a developme
 _Clone the repository_
 
 ```
-git clone git@github.com:luckdeluxe/Petgram.git / petgram.git &&  cd petgram
+git clone git@github.com:luckdeluxe/Petgram.git && cd Petgram
 ```
 
 _Create a virtual Python environment:_
