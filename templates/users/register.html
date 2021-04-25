@@ -1,0 +1,25 @@
+{% extends 'users/base.html' %}
+
+{% block head_content %}
+<title>Petgram • Register</title>
+{% endblock  %}
+
+
+{% block container %}
+
+    {% if form.errors %}
+        <p class="alert alert-danger">Check fields with error</p>     
+    {% endif%}
+
+    <form action={% url 'users:register' %} method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button class="btn btn-primary btn-block mt-3" type="submit">Register</button>
+    </form>
+
+{% endblock %}
+
+
+
