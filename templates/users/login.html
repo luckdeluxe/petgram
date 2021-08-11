@@ -12,7 +12,7 @@
     </p>
     {% endif%}
 
-    <form method="POST" action="{% url "users:login" %}">
+    <form method="POST" action="{% url 'users:login' %}">
     {% csrf_token %}
 
     <div class="form-group">
@@ -24,7 +24,7 @@
     <button class="btn btn-primary btn-block mt-3" type="submit">Sign in</button>
     </form>
     
-    <form action="{% url "users:register" %}">
+    <form action="{% url 'users:register' %}">
     <button class="btn btn-primary btn-block mt-3" type="submit">Register</button>
     </form>
       

@@ -16,7 +16,7 @@
                     {{ user.username }}
                     {% if user == request.user %}
                         <a
-                            href="{% url "users:update" %}"
+                            href="{% url 'users:update' %}"
                             class="ml-2 btn btn-sm btn-outline-info"
                         >
                             Edit profile
