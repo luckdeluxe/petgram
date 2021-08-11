@@ -3,7 +3,7 @@
     <div class="container">
 
         <a class="navbar-brand pr-5" style="border-right: 2px solid #efefef;" href="{% url 'posts:feed' %}">
-            <img src="{% static "img/logo.png" %}" height="35" class="d-inline-block align-top"/>
+            <img src="{% static 'img/logo.png' %}" height="35" class="d-inline-block align-top"/>
         </a>
 
         <div class="collapse navbar-collapse">
@@ -26,11 +26,12 @@
                 </li>
 
                 <li class="nav-item nav-icon">
-                    <a href="{% url "users:logout" %}">
+                    <a href="{% url 'users:logout' %}">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                 </li>
 
+                {% include 'snippets/search.html' with query=query %}
             </ul>
         </div>
     </div>
