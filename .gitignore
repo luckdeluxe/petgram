@@ -106,3 +106,8 @@ venv.bak/
 # Django
 db.sqlite3
 media/
+
+# VSCODE
+.vscode
+.vscode/settings.json
+.vscode/launch.json
