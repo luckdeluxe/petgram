@@ -1,6 +1,6 @@
 <div class="col-sm-12 col-md-7 offset-md-2 mt-4 p-0 post-container">
     <div class="media pt-3 pl-3 pb-1">
-        <a href="{% url "users:detail" post.user.username %}">
+        <a href="{% url 'users:detail' post.user.username %}">
             <img class="mr-3 rounded-circle" height="35" src="{{ post.profile.picture.url }}" alt="{{ post.user.get_full_name }}">
         </a>
         <div class="media-body">
@@ -10,12 +10,36 @@
 
     <img style="width: 100%;" src="{{ post.photo.url }}" alt="{{ post.title }}">
 
-    <p class="mt-1 ml-2" >
+    <!-- SECTOR LIKE // 
+    <p class="mt-2 ml-2" >
         <a href="" style="color: #000; font-size: 20px;">
             <i class="far fa-heart"></i>
         </a>
     </p>
-    <p class="ml-2 mt-0 mb-2">
+     -->
+
+    <p class="ml-2 mt-2 mb-3">
         <b>{{ post.title }}</b> - <small>{{ post.created }}</small>
     </p>
+    {% for comment in post.comments.all %}
+        <ul class="list-unstyled ml-2">
+            </li>
+            <li class="media">
+            <img class="mr-3 rounded-circle" height="30" src="{{ comment.profile.picture.url }}" alt="{{ profile.user.get_full_name }}">
+            <div class="media-body">
+                <p>{{comment}}</p>
+            </div>
+            </li>
+        </ul>
+    {% endfor %}
+
+    <form action="{% url 'comments:create' pk=post.pk %}" method="POST" >
+        {% csrf_token %}
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Comment here" aria-label="text" name="text" value="{{ post.comment.pk}}" >
+            <div class="input-group-append">
+            <button class="btn btn-dark" type="submit" id="button-addon2"><i class="fas fa-comment"></i></button>
+            </div>
+        </div> 
+    </form>    
 </div>
