@@ -4,7 +4,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import views as auth_views
 from django.urls import reverse, reverse_lazy
-from django.views.generic import DetailView, FormView, UpdateView
+from django.views.generic import DetailView, FormView, UpdateView, ListView
+from django.db.models import Q
 
 # Models
 from django.contrib.auth.models import User
@@ -13,6 +14,26 @@ from users.models import Profile
 
 # Forms
 from users.forms import SignupForm
+
+
+class ProfileSearchListView(ListView):
+    template_name = 'search.html'
+    model = User
+    context_object_name = 'users'
+    paginate_by = 12
+    
+
+    def get_queryset(self):
+        filters = Q(username__icontains=self.query()) | Q(first_name__icontains=self.query()) | Q(last_name__icontains=self.query())
+        return User.objects.filter(filters)
+
+    def query(self):
+        return self.request.GET.get('q')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.query()
+        return context
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
