@@ -14,18 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from users.views import ProfileSearchListView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-urlpatterns = [
+urlpatterns = [ 
+
+    path('search', ProfileSearchListView.as_view(), name='search'),
 
     path('admin/', admin.site.urls),
 
     path('', include(('posts.urls', 'posts'), namespace='posts')),
 
     path('users/', include(('users.urls', 'users'), namespace='users')),
+
+    path('comments', include(('comments.urls', 'comments'), namespace='comments')),
 
 
 #Concatenate static with the values defined in settings.py
