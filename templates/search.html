@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{%block title%} {{query}} {% endblock %}
+{% block container %}
+    <hr>
+    <p>Resultados para: {{query}}</p>
+    {% include 'snippets/list.html' %}
+    {% include "pagination.html" %}
+{% endblock %}
