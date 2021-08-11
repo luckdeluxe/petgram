@@ -1,0 +1,7 @@
+<div class="card h-100">
+    <img src="{{ user.profile.picture.url }}" class="img-fluid" alt="Imagen del profile" >
+    <div class="card-body">
+      <h5 class="card-title">{{ user.get_full_name }}</h5>
+      <a href="{% url 'users:detail' user.username %}" style="display: flex; align-items: center; flex-direction: column;" class="btn btn-secondary">Ver perfil</a>
+    </div>
+</div>
