@@ -10,22 +10,33 @@
 
     <img style="width: 100%;" src="{{ post.photo.url }}" alt="{{ post.title }}">
 
-    <!-- SECTOR LIKE // 
-    <p class="mt-2 ml-2" >
-        <a href="" style="color: #000; font-size: 20px;">
-            <i class="far fa-heart"></i>
-        </a>
-    </p>
-     -->
+    <!---  SECTOR LIKE --->
+    <form action="{% url 'likes:like_post' %}" method='POST' class="ui form">
+        {% csrf_token %}
+        <input type='hidden' name='post_id' value="{{post.id}}">
+        {% if user not in post.likes.all %}
+            <button type='submit' style="color: #000; font-size: 20px;">
+                <i class="far fa-heart"></i>
+            </button> <strong>{{post.likes.all.count}} Like(s) </strong>
+        {% else %}
+            <button type='submit' style="color: rgb(243, 6, 6); font-size: 20px;">
+                <i class="far fa-heart"></i>
+            </button> <strong>{{post.likes.all.count}} Like(s) </strong>
+        {% endif %}
+    </form>
 
+    
+    <!-- SECTOR COMENTARIOS -->
     <p class="ml-2 mt-2 mb-3">
-        <b>{{ post.title }}</b> - <small>{{ post.created }}</small>
+        <b>{{ post.user.username }}</b> {{ post.title }} - <small>{{ post.created }}</small>
     </p>
     {% for comment in post.comments.all %}
         <ul class="list-unstyled ml-2">
             </li>
             <li class="media">
-            <img class="mr-3 rounded-circle" height="30" src="{{ comment.profile.picture.url }}" alt="{{ profile.user.get_full_name }}">
+            <a href="{% url 'users:detail' comment.profile.user %}">
+                <img class="mr-3 rounded-circle" height="30" src="{{ comment.profile.picture.url }}" alt="{{ profile.user.get_full_name }}">
+            </a>
             <div class="media-body">
                 <p>{{comment}}</p>
             </div>
