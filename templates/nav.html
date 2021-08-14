@@ -1,10 +1,13 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg sticky-top" id="main-navbar">
-    <div class="container">
+    
+        <!--- Logo  --->
+    <a class="navbar-brand pr-5" style="border-right: 2px solid #efefef;" href="{% url 'posts:feed' %}">
+        <img src="{% static 'img/logo.png' %}" height="35" class="d-inline-block align-top "/>
+    </a>
 
-        <a class="navbar-brand pr-5" style="border-right: 2px solid #efefef;" href="{% url 'posts:feed' %}">
-            <img src="{% static 'img/logo.png' %}" height="35" class="d-inline-block align-top"/>
-        </a>
+        <!--- Perfil  --->
+    <div class="container" style="display: inline-flexbox; margin-left: -10px;">
 
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
@@ -31,9 +34,23 @@
                     </a>
                 </li>
 
-                {% include 'snippets/search.html' with query=query %}
+            <!--- Buscador  --->
+        <div class="nav-item" style="display: inline-flexbox; margin-left: 350px;" > 
+            {% include 'snippets/search.html' with query=query %}
+        </div>
             </ul>
         </div>
     </div>
+
+    <div class="btn-group dropleft">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Menu
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="{% url 'users:update' %}">Ediar perfil</a>
+          <a class="dropdown-item" href="#">Cambiar contraseña</a>
+        </div>
+      </div>
+
 </nav>
                     
