@@ -11,7 +11,7 @@
         <p class="alert alert-danger">Check fields with error</p>     
     {% endif%}
 
-    <form action={% url 'users:register' %} method="POST">
+    <form action="{% url 'users:register' %}" method="POST">
         {% csrf_token %}
 
         {{ form.as_p }}
