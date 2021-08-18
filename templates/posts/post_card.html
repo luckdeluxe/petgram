@@ -1,3 +1,4 @@
+<!--- SECTOR FOTO --->
 <div class="col-sm-12 col-md-7 offset-md-2 mt-4 p-0 post-container">
     <div class="media pt-3 pl-3 pb-1">
         <a href="{% url 'users:detail' post.user.username %}">
@@ -13,20 +14,27 @@
     <!---  SECTOR LIKE --->
     <form action="{% url 'likes:like_post' %}" method='POST' class="ui form">
         {% csrf_token %}
-        <input type='hidden' name='post_id' value="{{post.id}}">
-        {% if user not in post.likes.all %}
-            <button type='submit' style="color: #000; font-size: 20px;">
-                <i class="far fa-heart"></i>
-            </button> <strong>{{post.likes.all.count}} Like(s) </strong>
-        {% else %}
-            <button type='submit' style="color: rgb(243, 6, 6); font-size: 20px;">
-                <i class="far fa-heart"></i>
-            </button> <strong>{{post.likes.all.count}} Like(s) </strong>
-        {% endif %}
-    </form>
+        <div class="input-group"> 
+
+                {% if user not in post.likes.all %}
+
+                <button style="border-radius: 100px; outline:none;" type="submit" class="btn btn-sm btn-outline" value="{{post.id}}" name="post_id" >
+                    <i class="far fa-heart" data-mdb-toggle="animation" data-mdb-animation="pulse" data-mdb-animation-reset="true"></i> 
+                    <strong>{{post.likes.all.count}} Like(s)</strong>
+                </button>
+            
+                {% else %}
+                    <button  style="border-radius: 100px; outline:none;" type="submit" class="btn btn-sm btn-outline"  value="{{post.id}}" name="post_id" >
+                        <i class="fas fa-heart" data-mdb-toggle="animation" data-mdb-animation="pulse" data-mdb-animation-reset="true"></i>
+                        <strong>{{post.likes.all.count}} Like(s)</strong>
+                    </button>
+                    
+                {% endif %}
+        </div>
+    </form>   
 
     
-    <!-- SECTOR COMENTARIOS -->
+    <!-- SECTOR COMENTARIOS Y DETALLES -->
     <p class="ml-2 mt-2 mb-3">
         <b>{{ post.user.username }}</b> {{ post.title }} - <small>{{ post.created }}</small>
     </p>
@@ -43,13 +51,13 @@
             </li>
         </ul>
     {% endfor %}
-
+    <!-- INPUT COMENTARIO -->
     <form action="{% url 'comments:create' pk=post.pk %}" method="POST" >
         {% csrf_token %}
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Comment here" aria-label="text" name="text" value="{{ post.comment.pk}}" >
+            <input style="margin-top: auto;" type="text" class="form-control" placeholder="Comment here" aria-label="text" name="text" value="{{ post.comment.pk}}" >
             <div class="input-group-append">
-            <button class="btn btn-dark" type="submit" id="button-addon2"><i class="fas fa-comment"></i></button>
+            <button class="btn btn-dark" style="margin-top: auto;" type="submit"><i class="fas fa-comment"></i></button>
             </div>
         </div> 
     </form>    
