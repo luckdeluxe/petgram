@@ -94,4 +94,9 @@ class LogoutView(LoginRequiredMixin, auth_views.LogoutView):
 
     template_name = 'users/logged_out.html'
 
-  
+
+class ChangePasswordView(LoginRequiredMixin, auth_views.PasswordChangeView):
+    """Change password view."""
+
+    template_name = 'users/change.html'
+    success_url = reverse_lazy('users:login')

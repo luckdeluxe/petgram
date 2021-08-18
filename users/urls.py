@@ -31,6 +31,12 @@ urlpatterns = [
         name='update'
     ),
 
+    path(
+        route='change/',
+        view=views.ChangePasswordView.as_view(),
+        name='change'
+    ),
+
     # Posts
     path(
         route='<str:username>/',
