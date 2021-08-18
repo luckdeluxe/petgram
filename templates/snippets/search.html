@@ -1,10 +1,10 @@
-<li class="nav-item nav-icon " style="padding-left: 5%;"></li>
-    <form class="form-inline " action="{% url 'search' %}">
-        <div class="input-group ">
-            <input type="text" name="q" value="{{query}}" class="form-control" placeholder="Buscar">
-            <div class="input-group-append">
-                <input type="submit" class="btn btn-secondary" value="Buscar" name="">
-            </div>
+<form action="{% url 'search' %}" style="display: inline-flexbox; margin-left: 550px;">
+    <div class="input-group"> 
+        <div class="form-outline">
+            <input name="q" type="search" class="form-control" value="{{query}}" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
+            <label class="form-label" name="q" for="form1"><i class="fas fa-search"></i> <span> Search </span> </label>
         </div>
-    </form>
-</li>
+    </div>
+</form>
+
+
