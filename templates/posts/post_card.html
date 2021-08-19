@@ -7,6 +7,11 @@
         <div class="media-body">
             <p style="margin-top: 6px;">{{ post.user.get_full_name  }}</p>
         </div>
+        {% if request.user == post.user %}
+        <form action="{% url 'posts:delete' pk=post.pk %}" method="post">{% csrf_token %}
+            <button data-mdb-toggle="animation" data-mdb-animation="pulse" data-mdb-animation-reset="true" style="border-radius: 100px; outline:none;" type="submit" class="btn btn-sm btn-outline"><i class="fas fa-backspace"></i></button>
+        </form>
+        {% endif %}
     </div>
 
     <img style="width: 100%;" src="{{ post.photo.url }}" alt="{{ post.title }}">
@@ -33,7 +38,7 @@
         </div>
     </form>   
 
-    
+
     <!-- SECTOR COMENTARIOS Y DETALLES -->
     <p class="ml-2 mt-2 mb-3">
         <b>{{ post.user.username }}</b> {{ post.title }} - <small>{{ post.created }}</small>
@@ -48,6 +53,11 @@
             <div class="media-body">
                 <p>{{comment}}</p>
             </div>
+            {% if request.user == comment.user %}
+            <form action="{% url 'comments:delete_comment' pk=comment.pk %}" method="post">{% csrf_token %}
+                <button style="border-radius: 100px; outline:none;" type="submit" class="btn btn-sm btn-outline"><i class="fas fa-trash-alt"></i></button>
+            </form>
+            {% endif %}
             </li>
         </ul>
     {% endfor %}

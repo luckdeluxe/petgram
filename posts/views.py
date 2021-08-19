@@ -2,7 +2,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, DeleteView
+
 #Models
 from posts.models import Post
 
@@ -44,3 +45,7 @@ def create_post(request):
             'profile': request.user.profile
         }
     )
+
+class DeletePostView(LoginRequiredMixin, DeleteView):
+    model = Post
+    success_url = '/'
