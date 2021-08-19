@@ -1,6 +1,6 @@
 #Django
-from django.shortcuts import get_object_or_404, render, redirect
-from django.views.generic.list import ListView
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, DeleteView
 
 #Models
 from comments.models import Comment
@@ -35,3 +35,8 @@ def create_comment(request, pk):
         'user': request.user,
         'profile': request.user.profile
         })
+
+class CommentDeleteView(DeleteView):
+
+    model = Comment
+    success_url = '/'
