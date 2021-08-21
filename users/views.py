@@ -4,8 +4,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import views as auth_views
 from django.urls import reverse, reverse_lazy
-from django.views.generic import DetailView, FormView, UpdateView, ListView
+from django.views.generic import DetailView, FormView, UpdateView, ListView, View
 from django.db.models import Q
+from django.shortcuts import redirect
 
 # Models
 from django.contrib.auth.models import User
@@ -14,6 +15,20 @@ from users.models import Profile
 
 # Forms
 from users.forms import SignupForm
+
+
+class ProfileFollowToggle(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        user_to_toggle = request.POST.get('username')
+        profile_ = Profile.objects.get(user__username__iexact=user_to_toggle)
+        user = request.user
+
+        if user in profile_.followers.all():
+            profile_.followers.remove(user)
+        else:
+            profile_.followers.add(user)
+            
+        return redirect(f'{profile_.user.username}/')
 
 
 class ProfileSearchListView(ListView):
@@ -49,6 +64,10 @@ class UserDetailView(LoginRequiredMixin, DetailView):
         """Add user's posts to context."""
         context = super().get_context_data(**kwargs)
         user = self.get_object()
+        is_following = False
+        if user.profile in self.request.user.is_following.all():
+            is_following = True
+        context['is_following'] = is_following
         context['posts'] = Post.objects.filter(user=user).order_by('-created')
         return context
 
