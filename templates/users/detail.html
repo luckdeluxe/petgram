@@ -6,7 +6,7 @@
 
 {% block container %}
 
-    <div class="container mb-4" style="margin-top: 2em;">
+    <div class="container mb-4">
         <div class="row">
             <div class="col-sm-4 d-flex justify-content-center">
                 <img src="{{ user.profile.picture.url }}" alt="{{ user.username}}" class="rounded-circle" width="150px" />
@@ -22,26 +22,28 @@
                             Edit profile
                         </a>
                     {% else %}
-                        <a
-                            href=""
-                            class="ml-5 btn btn-sm btn-primary"
-                        >
-                            Follow
-                        </a>
+                        {% include 'snippets/follow_form.html' with username=user.username is_following=is_following %}
                     {% endif %}
                 </h2>
                 <div class="row mt-3" style="font-size: 1.2em">
                     <div class="col-sm-3">
                         <b>{{ posts.all.count }}</b> Posts
                     </div>
-                <!---
+                
                     <div class="col-sm-3">
-                        <b>{{ user.profile.followers }}125</b> Followers
+                        <b>{{ user.profile.followers.all.count }}</b> Followers
                     </div>
                     <div class="col-sm-3">
-                        <b>{{ user.profile.following }}491</b >Following
+                        <b>{{ user.is_following.all.count }}</b> Following
                     </div>
-                --->    
+                  
+                    <div class="col-sm-3">
+                    {% if request.user.profile.activated == False %}
+                        <b style="color: red;">Offline</b>
+                    {% else %}
+                        <b style="color: green;">Online</b>
+                    {% endif %}
+                    </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-sm-12">
@@ -54,7 +56,7 @@
 
     <hr>
 
-<div class="container" id="user-posts">
+<div class="container" id="user-posts" style="margin-bottom: 15%;">
         <div class="row mt-3">
             {% for post in posts %}
             <div class="col-sm-4 pt-4 pb-4 pr-5 pl-5 d-flex justify-content-center align-items-center">
