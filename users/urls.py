@@ -42,6 +42,12 @@ urlpatterns = [
         route='<str:username>/',
         view=views.UserDetailView.as_view(),
         name='detail'
-    )
+    ),
+    #Follow
+    path(
+        route='',
+        view=views.ProfileFollowToggle.as_view(),
+        name="follow"
+    ),
 
 ]
